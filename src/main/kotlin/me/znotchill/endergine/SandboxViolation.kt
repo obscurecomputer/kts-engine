@@ -1,4 +1,4 @@
-package me.znotchill
+package me.znotchill.endergine
 
 data class SandboxViolation(
     val className: String,

@@ -1,5 +1,7 @@
-package me.znotchill
+package me.znotchill.endergine
 
+import me.znotchill.endergine.BytecodeInspector
+import me.znotchill.endergine.SandboxScript
 import kotlin.collections.component1
 import kotlin.collections.component2
 import kotlin.script.experimental.api.ResultWithDiagnostics
@@ -11,11 +13,7 @@ import kotlin.script.experimental.jvm.impl.KJvmCompiledModuleInMemory
 import kotlin.script.experimental.jvm.impl.KJvmCompiledScript
 import kotlin.script.experimental.jvm.jvm
 import kotlin.script.experimental.jvmhost.JvmScriptCompiler
-import kotlin.script.experimental.annotations.KotlinScript
 import kotlin.script.experimental.api.compilerOptions
-
-@KotlinScript(fileExtension = "sandbox.kts")
-abstract class SandboxScript
 
 class ScriptRunner(
     val config: SandboxConfig = SandboxConfig {}

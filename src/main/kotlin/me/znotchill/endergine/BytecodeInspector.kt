@@ -1,10 +1,11 @@
-package me.znotchill
+package me.znotchill.endergine
 
 import org.objectweb.asm.ClassReader
 import org.objectweb.asm.ClassVisitor
 import org.objectweb.asm.MethodVisitor
 import org.objectweb.asm.Opcodes.ASM9
 import org.objectweb.asm.Opcodes.NEW
+import org.objectweb.asm.Type
 
 class BytecodeInspector(
     private val config: SandboxConfig
@@ -80,7 +81,7 @@ class BytecodeInspector(
         }
 
         override fun visitLdcInsn(value: Any?) {
-            if (value is org.objectweb.asm.Type) {
+            if (value is Type) {
                 val dotName = value.internalName.replace('/', '.')
                 if (dotName == currentClass.replace('/', '.')) return
                 check(value.internalName)

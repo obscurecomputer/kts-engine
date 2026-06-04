@@ -1,4 +1,4 @@
-package me.znotchill
+package me.znotchill.endergine
 
 import java.io.File
 

@@ -1,4 +1,4 @@
-package me.znotchill
+package me.znotchill.endergine
 
 class ScriptClassLoader(
     private val classFiles: Map<String, ByteArray>,

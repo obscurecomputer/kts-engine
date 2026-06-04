@@ -1,4 +1,6 @@
-package me.znotchill
+package me.znotchill.endergine
+
+import me.znotchill.endergine.SandboxScript
 
 class SandboxConfig {
     val allowed: MutableSet<String> = mutableSetOf()
