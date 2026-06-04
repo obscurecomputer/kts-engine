@@ -96,7 +96,9 @@ class BytecodeInspector(
             if (internalName in scriptClasses) return
             val dotName = internalName.replace('/', '.')
             if (!config.isAllowed(dotName)) {
-                violations.add(SandboxViolation(currentClass, currentMethod, dotName))
+                violations.add(
+                    SandboxViolation(currentClass, currentMethod, dotName)
+                )
             }
         }
     }

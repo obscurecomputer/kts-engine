@@ -18,8 +18,7 @@ import kotlin.script.experimental.api.compilerOptions
 abstract class SandboxScript
 
 class ScriptRunner(
-    val config: SandboxConfig = SandboxConfig.builder()
-        .build()
+    val config: SandboxConfig = SandboxConfig {}
 ) {
     val compilationConfig = ScriptCompilationConfiguration {
         baseClass(SandboxScript::class)
@@ -44,7 +43,7 @@ class ScriptRunner(
                 val violations = inspector.inspect(classFiles)
 
                 if (violations.isNotEmpty()) {
-                    violations.forEach { println("  ${it.className}#${it.method}: ${it.blockedClass}") }
+                    config.onError(violations)
                 } else {
                     val loader = ScriptClassLoader(classFiles, config)
                     val scriptClass = loader.loadClass("Script_sandbox")

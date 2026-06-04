@@ -1,10 +1,28 @@
 package me.znotchill
 
-class SandboxConfig private constructor(
-    val allowed: Set<String>,
-    val blocked: Set<String>,
-    val blockedMethodsByClass: Map<String, Set<String>>,
-) {
+class SandboxConfig {
+    val allowed: MutableSet<String> = mutableSetOf()
+    val blocked: MutableSet<String> = mutableSetOf()
+    val blockedMethodsByClass: MutableMap<String, MutableSet<String>> = mutableMapOf()
+
+    var onError: (List<SandboxViolation>) -> Unit = {}
+
+    constructor(block: SandboxConfig.() -> Unit) {
+        this.apply(block)
+    }
+
+    fun allow(vararg prefixes: String) = apply {
+        allowed.addAll(prefixes)
+    }
+    fun block(vararg names: String) = apply {
+        blocked.addAll(names)
+    }
+    fun blockMethods(className: String, vararg methods: String) = apply {
+        blockedMethodsByClass.getOrPut(className) {
+            mutableSetOf()
+        }.addAll(methods)
+    }
+
     fun isAllowed(className: String): Boolean {
         if (isEngineClass(className)) return true
 
@@ -82,25 +100,5 @@ class SandboxConfig private constructor(
         internal val ENGINE_PACKAGE = SandboxScript::class.java.packageName + "."
 
         fun isEngineClass(className: String) = className.startsWith(ENGINE_PACKAGE)
-
-        fun builder() = Builder()
-    }
-
-    class Builder {
-        private val allowed = mutableSetOf<String>()
-        private val blocked = mutableSetOf<String>()
-        private val blockedMethodsByClass = mutableMapOf<String, MutableSet<String>>()
-
-        fun allow(vararg prefixes: String) = apply { allowed.addAll(prefixes) }
-        fun block(vararg names: String) = apply { blocked.addAll(names) }
-        fun blockMethods(className: String, vararg methods: String) = apply {
-            blockedMethodsByClass.getOrPut(className) { mutableSetOf() }.addAll(methods)
-        }
-
-        fun build() = SandboxConfig(
-            allowed.toSet(),
-            blocked.toSet(),
-            blockedMethodsByClass.mapValues { it.value.toSet() }
-        )
     }
 }
