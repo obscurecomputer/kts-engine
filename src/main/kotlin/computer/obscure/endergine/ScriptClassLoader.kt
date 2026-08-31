@@ -1,10 +1,10 @@
-package me.znotchill.endergine
+package computer.obscure.endergine
 
 class ScriptClassLoader(
     private val classFiles: Map<String, ByteArray>,
     private val config: SandboxConfig,
     private val hostLoader: ClassLoader = getSystemClassLoader()
-) : ClassLoader(null) {
+) : ClassLoader(hostLoader) {
 
     override fun loadClass(name: String, resolve: Boolean): Class<*> {
         findLoadedClass(name)?.let { return it }

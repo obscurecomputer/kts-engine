@@ -1,8 +1,8 @@
-package me.znotchill.endergine
-
-import me.znotchill.endergine.SandboxScript
+package computer.obscure.endergine
 
 class SandboxConfig {
+    var extension: String? = null
+    var classLoader: ClassLoader = SandboxScript::class.java.classLoader
     val allowed: MutableSet<String> = mutableSetOf()
     val blocked: MutableSet<String> = mutableSetOf()
     val blockedMethodsByClass: MutableMap<String, MutableSet<String>> = mutableMapOf()

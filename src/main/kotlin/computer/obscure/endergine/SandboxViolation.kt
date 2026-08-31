@@ -1,4 +1,4 @@
-package me.znotchill.endergine
+package computer.obscure.endergine
 
 data class SandboxViolation(
     val className: String,

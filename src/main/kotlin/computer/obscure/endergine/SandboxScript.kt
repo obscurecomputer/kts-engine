@@ -1,4 +1,4 @@
-package me.znotchill.endergine
+package computer.obscure.endergine
 
 import kotlin.script.experimental.annotations.KotlinScript
 
